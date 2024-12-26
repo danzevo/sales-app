@@ -30,22 +30,18 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException{
         try {
-            System.out.println("JwtFilter is being called!");
             String authHeader = request.getHeader("Authorization");
             if(authHeader != null && authHeader.startsWith("Bearer ")) {
                 String token = authHeader.substring(7);
-                System.out.println("token: " + token);
+                
                 if (token.isEmpty()) {
                     System.out.println("Token is empty!");
                 } else {
                     Claims claims = jwtUtil.extractClaims(token);
 
-                    System.out.println("Claim: " + claims);
                     if(claims != null) {
                         String username = claims.getSubject();
                         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-                        System.out.println("Authenticated user: " + username);
 
                         if(user.isActive()) {
                             UserDetails userDetails = org.springframework.security.core.userdetails.User
@@ -59,8 +55,6 @@ public class JwtFilter extends OncePerRequestFilter {
                                     userDetails, null, userDetails.getAuthorities()
                                 )
                             );
-
-                            System.out.println("Authentication context set for: " + userDetails.getUsername());
                         }
                     }
                 }

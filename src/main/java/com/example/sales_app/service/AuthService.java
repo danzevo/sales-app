@@ -30,7 +30,6 @@ public class AuthService {
         Optional<User> user = userRepository.findByUsername(request.getUsername());
         
         if(user.isPresent() && passwordEncoder.matches(request.getPassword(), user.get().getPassword())) {
-            System.out.println("sukses");
             if(!user.get().isActive()) throw new IllegalArgumentException("User not activated");
             String token = jwtUtil.generateToken(user.get().getUsername(), user.get().getRole().name());
             
