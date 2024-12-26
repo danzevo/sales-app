@@ -28,6 +28,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()
                 .requestMatchers(HttpMethod.PUT, "/api/admin/activate").hasRole("ADMIN")
                 .requestMatchers(new AntPathRequestMatcher("/api/products/**")).hasRole("ADMIN")
