@@ -23,3 +23,6 @@ This is a Spring Boot-based application for managing transactions, products, and
 1. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/sales-app.git
+2. **Using docker**
+   docker-compose up --build
+   docker-compose down
