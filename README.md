@@ -20,9 +20,24 @@ This is a Spring Boot-based application for managing transactions, products, and
 
 ## Setup and Installation
 
-1. **Clone the repository**
+1. **Install Maven** (if not already installed):
+   - On **Windows**: Download the Maven installer from [Maven Download Page](https://maven.apache.org/download.cgi), and follow the installation guide.
+   - On **macOS**:
+     ```bash
+     brew install maven
+     ```
+   - On **Linux**:
+     ```bash
+     sudo apt install maven
+     ```
+2. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/sales-app.git
-2. **Using docker**  
+3. Navigate to the project directory:
+   cd sales-app   
+4. Run the following command to clean and package the project while skipping tests:
+   ```bash
+   mvn clean package -DskipTests
+2. **Using docker**
    docker-compose up --build  
    docker-compose down
