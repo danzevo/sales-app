@@ -34,10 +34,12 @@ This is a Spring Boot-based application for managing transactions, products, and
    ```bash
    git clone https://github.com/yourusername/sales-app.git
 3. Navigate to the project directory:
+   ```bash
    cd sales-app   
-4. Run the following command to clean and package the project while skipping tests:
+5. Run the following command to clean and package the project while skipping tests:
    ```bash
    mvn clean package -DskipTests
 2. **Using docker**
+   ```bash
    docker-compose up --build  
    docker-compose down
