@@ -1,5 +1,7 @@
 package com.example.sales_app.service;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +13,8 @@ import java.util.Optional;
 import com.example.sales_app.repository.UserRepository;
 import com.example.sales_app.request.LoginRequest;
 import com.example.sales_app.request.RegisterRequest;
+import com.example.sales_app.response.UserResponse;
 import com.example.sales_app.security.JwtUtil;
-import com.example.sales_app.util.SecurityUtil;
 
 @Service
 public class AuthService {
@@ -46,5 +48,14 @@ public class AuthService {
         user.setCreatedBy(request.getUsername());
         user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
+    }
+
+    public UserResponse getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
+
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return new UserResponse(user.getUsername(), user.getRole().name(), user.isActive());
     }
 }

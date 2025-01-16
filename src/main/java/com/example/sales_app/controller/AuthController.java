@@ -2,6 +2,7 @@ package com.example.sales_app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.sales_app.request.LoginRequest;
 import com.example.sales_app.request.RegisterRequest;
+import com.example.sales_app.response.UserResponse;
 import com.example.sales_app.service.AuthService;
 
 @RestController
@@ -33,9 +35,9 @@ public class AuthController {
         return ResponseEntity.ok("User registered succesfully");
     }
 
-    /* @PostMapping("/activate")
-    public ResponseEntity<?> activate(@RequestBody RegisterRequest request) {
-        authService.activateUser(request.getUsername());
-        return ResponseEntity.ok("User activated succesfully");
-    } */
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> getCurrentUser() {
+        UserResponse userResponse = authService.getCurrentUser();
+        return ResponseEntity.ok(userResponse);
+    }
 }
