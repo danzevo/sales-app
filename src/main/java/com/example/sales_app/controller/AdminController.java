@@ -25,12 +25,18 @@ public class AdminController {
     
     @PutMapping("/activate/{username}")
     public ResponseEntity<?> activateUser(@PathVariable String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        user.setActive(true);        
-        user.setChangedBy(SecurityUtil.getCurrentUser());
-        user.setChangedAt(LocalDateTime.now());
-        userRepository.save(user);
+        try{
+            User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("User not found"));
+            user.setActive(true);        
+            user.setChangedBy(SecurityUtil.getCurrentUser());
+            user.setChangedAt(LocalDateTime.now());
+            userRepository.save(user);
 
-        return ResponseEntity.ok("User activated succesfully");
+            return ResponseEntity.ok("User activated succesfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An error occurred: "+e.getMessage());
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.sales_app.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -27,25 +28,45 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
-        return ResponseEntity.ok(products);
+        try {
+            List<Product> products = productService.getAllProducts();
+            return ResponseEntity.ok(products);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Collections.emptyList());
+        }
     }
 
     @PostMapping
     public ResponseEntity<?> addProduct(@RequestBody ProductRequest request) {
-        productService.addProduct(request);
-        return ResponseEntity.ok("Product added successfully");
+        try {
+            productService.addProduct(request);
+            return ResponseEntity.ok("Product added successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An error occurred: "+e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody ProductRequest request) {
-        productService.updateProduct(id, request);
-        return ResponseEntity.ok("Product updated successfully");
+        try {
+            productService.updateProduct(id, request);
+            return ResponseEntity.ok("Product updated successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An error occurred: "+e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
-        return ResponseEntity.ok("Product deleted successfully");
+        try {
+            productService.deleteProduct(id);
+            return ResponseEntity.ok("Product deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Collections.emptyList());
+        }
     }
 }

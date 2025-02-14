@@ -27,7 +27,13 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<?> createTransaction(@RequestBody TransactionRequest request) {
-        transactionService.createTransaction(request);
-        return ResponseEntity.ok("Transaction created successfully");
+        try{
+            transactionService.createTransaction(request);
+            return ResponseEntity.ok("Transaction created successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An error occurred: "+e.getMessage());
+        }
     }
 }

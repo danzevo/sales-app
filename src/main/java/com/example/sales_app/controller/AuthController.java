@@ -25,19 +25,35 @@ public class AuthController {
     
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        String token = authService.login(request);
-        return ResponseEntity.ok(token);
+        try{
+            String token = authService.login(request);
+            return ResponseEntity.ok(token);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An error occurred: "+e.getMessage());
+        }
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        authService.register(request);
-        return ResponseEntity.ok("User registered succesfully");
+        try{
+            authService.register(request);
+            return ResponseEntity.ok("User registered succesfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An error occurred: "+e.getMessage());
+        }
     }
 
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser() {
-        UserResponse userResponse = authService.getCurrentUser();
-        return ResponseEntity.ok(userResponse);
+        try{
+            UserResponse userResponse = authService.getCurrentUser();
+            return ResponseEntity.ok(userResponse);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 }

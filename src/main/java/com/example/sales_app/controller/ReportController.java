@@ -20,6 +20,10 @@ public class ReportController {
 
     @PostMapping
     public ResponseEntity<?> generatedReport(@RequestBody ReportRequest request) {
-        return ResponseEntity.ok(reportService.generateReport(request));
+        try{
+            return ResponseEntity.ok(reportService.generateReport(request));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("An error occurred: "+e.getMessage());
+        }
     }
 }

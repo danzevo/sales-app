@@ -9,7 +9,6 @@ import com.example.sales_app.entity.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 import com.example.sales_app.repository.ProductRepository;

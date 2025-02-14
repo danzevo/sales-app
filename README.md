@@ -17,6 +17,7 @@ This is a Spring Boot-based application for managing transactions, products, and
 - **JWT (JSON Web Tokens)**: Secure authentication using tokens.
 - **PostgreSQL**: Database to store application data.
 - **JPA (Java Persistence API)**: ORM for database interactions.
+- **Logback**: Logging framework for application logs.
 
 ## Setup and Installation
 
