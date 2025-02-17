@@ -18,6 +18,7 @@ This is a Spring Boot-based application for managing transactions, products, and
 - **PostgreSQL**: Database to store application data.
 - **JPA (Java Persistence API)**: ORM for database interactions.
 - **Logback**: Logging framework for application logs.
+- **Test**: Integration tests to ensure the full flow of requests is working as expected, particularly for testing authentication, transaction creation, and product management endpoints.
 
 ## Setup and Installation
 
@@ -40,7 +41,7 @@ This is a Spring Boot-based application for managing transactions, products, and
 5. Run the following command to clean and package the project while skipping tests:
    ```bash
    mvn clean package -DskipTests
-2. **Using docker**
+6. **Using docker**
    ```bash
    docker-compose up --build  
    docker-compose down
