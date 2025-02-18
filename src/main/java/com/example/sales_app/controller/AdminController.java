@@ -32,7 +32,7 @@ public class AdminController {
             user.setChangedAt(LocalDateTime.now());
             userRepository.save(user);
 
-            return ResponseEntity.ok("User activated succesfully");
+            return ResponseEntity.ok("User activated successfully");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
