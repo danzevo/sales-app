@@ -33,6 +33,12 @@ public class User {
     private LocalDateTime deletedAt;
     private String deletedBy;
 
+    private String activationToken;
+    private LocalDateTime tokenCreatedAt;
+
+    @Column(nullable=false, unique=true)
+    private String email;
+    
     public enum Role {
         ADMIN, KASIR
     }

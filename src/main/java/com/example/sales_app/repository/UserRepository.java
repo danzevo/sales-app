@@ -10,4 +10,5 @@ import com.example.sales_app.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);  
+    Optional<User> findByActivationToken(String activationToken);
 }   

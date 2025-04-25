@@ -1,5 +1,6 @@
 package com.example.sales_app.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.example.sales_app.entity.User;
 import com.example.sales_app.request.LoginRequest;
 import com.example.sales_app.request.RegisterRequest;
 import com.example.sales_app.response.UserResponse;
@@ -63,8 +65,9 @@ public class AuthControllerTest {
 
     @Test
     void testRegisterSuccess() throws Exception {
-        RegisterRequest request = new RegisterRequest("user@example.com", "password");
-        doNothing().when(authService).register(any(RegisterRequest.class));
+        RegisterRequest request = new RegisterRequest("user@example.com", "password", "user@example.com");
+        // doNothing().when(authService).register(any(RegisterRequest.class));
+        when(authService.register(any(RegisterRequest.class))).thenReturn(new User());
 
         mockMvc.perform(post("/api/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -75,7 +78,7 @@ public class AuthControllerTest {
 
     @Test 
     void testRegisterFailure() throws Exception {
-        RegisterRequest request = new RegisterRequest("user@example.com", "password");
+        RegisterRequest request = new RegisterRequest("user@example.com", "password", "user@example.com");
         doThrow(new IllegalArgumentException("Email already exists"))
             .when(authService).register(any(RegisterRequest.class));
 
