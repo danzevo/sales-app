@@ -20,6 +20,17 @@ This is a Spring Boot-based application for managing transactions, products, and
 - **Logback**: Logging framework for application logs.
 - **Test**: Integration tests to ensure the full flow of requests is working as expected, particularly for testing authentication, transaction creation, and product management endpoints.
 
+## 📘 API Documentation (Swagger UI)
+This application includes Swagger UI for interactive API documentation and testing.
+
+### 🔧 How to Access Swagger UI
+After running the application, visit the following URL in your browser:
+```
+http://localhost:8080/swagger-ui/index.html
+```
+> Make sure the application is running on port `8080`, or update the URL according to your configured port.
+
+
 ## Setup and Installation
 
 1. **Install Maven** (if not already installed):
